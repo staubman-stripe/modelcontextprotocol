@@ -111,6 +111,10 @@ Form mode elicitation requests **MUST** either specify `mode: "form"` or omit th
 | ----------------- | ------ | -------------------------------------------------------------- |
 | `requestedSchema` | object | A JSON Schema defining the structure of the expected response. |
 
+Form mode elicitation requests **MAY** contain zero properties. Such requests allow the server to obtain a user decision without collecting additional data.
+
+Clients **MUST** still present the request's `message` and **MUST NOT** treat the absence of input fields as implicit acceptance.
+
 #### Requested Schema
 
 The `requestedSchema` parameter allows servers to define the structure of the expected
