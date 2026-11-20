@@ -111,14 +111,12 @@ Form mode elicitation requests **MUST** either specify `mode: "form"` or omit th
 | ----------------- | ------ | -------------------------------------------------------------- |
 | `requestedSchema` | object | A JSON Schema defining the structure of the expected response. |
 
-Form mode elicitation requests **MAY** contain zero properties. Such requests allow the server to obtain a user decision without collecting additional data.
-
-Clients **MUST** still present the request's `message` and **MUST NOT** treat the absence of input fields as implicit acceptance.
-
 #### Requested Schema
 
 The `requestedSchema` parameter allows servers to define the structure of the expected
 response using a restricted subset of JSON Schema.
+
+Form mode elicitation requests **MAY** contain zero properties. Such requests allow the server to obtain a user decision without collecting additional data.
 
 To simplify client user experience, form mode elicitation schemas are limited to flat objects
 with primitive properties only.
@@ -320,6 +318,33 @@ Note that complex nested structures, arrays of objects (beyond enums), and other
     "email": "octocat@github.com",
     "age": 30
   }
+}
+```
+
+#### Example: Confirmation Request
+
+**Input request (delivered inside `InputRequiredResult.inputRequests`):**
+
+```json
+{
+  "method": "elicitation/create",
+  "params": {
+    "mode": "form",
+    "message": "Continue with the default settings?",
+    "requestedSchema": {
+      "type": "object",
+      "properties": {}
+    }
+  }
+}
+```
+
+**Client result (returned inside `inputResponses` on the retried request):**
+
+```json
+{
+  "action": "accept",
+  "content": {}
 }
 ```
 
